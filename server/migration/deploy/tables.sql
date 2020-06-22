@@ -98,7 +98,7 @@ CREATE TABLE "collection"(
     "updated_at" TIMESTAMP
 );
 
--- reste 2 tables à faire
+-- ------- ------- n to n
 -- category_has_picture
 CREATE TABLE "category_has_picture"(
     "category_id" INT NOT NULL REFERENCES "category"("id") ON DELETE CASCADE,
