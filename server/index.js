@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const bodyParser = require('body-parser');
+const router = require('./app/router');
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -19,6 +20,8 @@ app.use(
         extended: true
     })
 );
+
+app.use(router);
 
 // on lance le serveur
 app.listen(PORT, () => {
