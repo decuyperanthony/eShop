@@ -1,0 +1,7 @@
+%syntax-version=1.0.0
+%project=arunashop
+
+migration1 2020-06-22T09:52:23Z decuyperanthony <decuyperanthony@gmail.com> # première migration
+tables 2020-06-22T10:48:01Z decuyperanthony <decuyperanthony@gmail.com> # ajout des tables
+domain 2020-06-22T14:41:50Z decuyperanthony <decuyperanthony@gmail.com> # ajout du fichier domain.sql
+fakedata 2020-06-22T16:05:37Z decuyperanthony <decuyperanthony@gmail.com> # ajout de fausse données
