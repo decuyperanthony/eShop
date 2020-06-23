@@ -3,6 +3,8 @@ const express = require('express');
 
 // == Controller
 const authController = require('./controllers/authController');
+const articleController = require('./controllers/articleController');
+
 
 const router = express.Router();
 
@@ -11,6 +13,10 @@ const router = express.Router();
 router.post("/login", authController.loginAction);
 // == page signup
 router.post("/signup", authController.signupAction);
+
+//* ----- ROUTE DES ARTICLES -----
+router.get("/article", articleController.getAllArticles);
+
 
 
 
