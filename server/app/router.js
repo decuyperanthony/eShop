@@ -16,6 +16,7 @@ router.post("/signup", authController.signupAction);
 
 //* ----- ROUTE DES ARTICLES -----
 router.get("/article", articleController.getAllArticles);
+router.get("/article/:id", articleController.getOneArticle);
 
 
 

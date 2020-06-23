@@ -16,6 +16,18 @@ const ArticleController = {
             res.status(500).send(error);
         }
     },
+    getOneArticle: async (req, res) => {
+        try {
+            let articleId = req.params.id;
+            let article = await Article.findByPk(articleId, {
+                include: ["category", "collection"],
+            });
+            res.send(article);
+        } catch (error) {
+            console.trace(error);
+            res.status(500).send(error);
+        }
+    }
 }
 
 module.exports = ArticleController;
