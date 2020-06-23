@@ -38,39 +38,39 @@ User.init({
     // new
     sexe: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     },
     birthday: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true
     },
     phone: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     },
     adresse1: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     },
     adresse2: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     },
     zip: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     },
     city: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     },
     country: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     },
     role: {
         type: Sequelize.TEXT,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 'user'
     },
     // picture_road: {
