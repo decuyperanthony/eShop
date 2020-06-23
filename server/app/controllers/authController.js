@@ -26,20 +26,20 @@ const authController = {
         // si le user n'existe pas
         if (!user) {
             console.log('Cet email existe pas');
-            return res.status(401).end();
+            return res.send('Cet email existe pas').status(401).end();
         }
         // pour comparer le mdp
-        let testPass = true;
-        // if (user) {
-        //  testPass = bcrypt.compareSync(password, user.password);
-        // }
+        let testPass = "";
+        if (user) {
+         testPass = bcrypt.compareSync(password, user.password);
+        }
         // si le user existe et le testPass est true
         if (user && testPass) {
             console.log('<< 200 ok user :', user);
             res.send(user);
         } else {
             console.log('<< 401 UNAUTHORIZED');
-            res.status(401).end();
+            res.send('le mot de passe est incorrect').status(401).end();
         }
         } catch (error) {
             console.trace(error);
@@ -48,6 +48,97 @@ const authController = {
             });
         }
     },
+
+    signupAction: async (req, res) => {
+        try {
+            // on recup les infos
+            const {
+                email,
+                password,
+                firstname,
+                lastname,
+                sexe,
+                birthday,
+                phone,
+                adresse1,
+                adresse2,
+                zip,
+                city,
+                country
+            } = req.body;
+            // on verif que l'user n'existe pas avec son mail
+            const user = await User.findOne({
+                where: {
+                    email
+                }
+            });
+            // on se prépare une liste d'erreur
+            let errorsList = [];
+            // si on trouve un user => le mail existe
+            if (user) {
+                errorsList.push("Cet email existe déjà");
+            }
+            if (!firstname) {
+                errorsList.push("Le prénom ne peut pas être vide");
+            }
+            if (!lastname) {
+                errorsList.push("Le nom ne peut pas être vide");
+            }
+            if (!emailValidator.validate(email)) {
+                errorsList.push(
+                    "L'email n'est pas un email correct"
+                );
+            }
+            if (password.length < 8) {
+                errorsList.push(
+                  "Le mot de passe doit contenir un minimum de 8 caractères"
+                );
+            }
+            if (errorsList.length === 0) {
+                let newUser = new User(req.body);
+                // console.log('newUser avant', newUser)
+                // newUser = {
+                //     firstname,
+                //     lastname,
+                //     email,
+                //     password: bcrypt.hashSync(password, 10),
+                //     // sexe,
+                //     // birthday,
+                //     phone,
+                //     adresse1,
+                //     adresse2,
+                //     zip,
+                //     city,
+                //     country
+                // }
+
+                // console.log('newUser apres', newUser)
+
+                // newUser.firstname = firstname;
+                // newUser.lastname = lastname;
+                // newUser.email = email;
+                // newUser.password = bcrypt.hashSync(password, 10);
+                // newUser.sexe = sexe;
+                // newUser.birthday = birthday;
+                // newUser.phone = phone;
+                // newUser.adresse1 = adresse1;
+                // newUser.adresse2 = adresse2;
+                // newUser.zip = zip;
+                // newUser.city = city;
+                // newUser.country = country;
+
+                console.log('newUserAfter', newUser)
+
+                const savedUser = await newUser.save();
+                res.status(200).send(savedUser);
+            } else {
+                res.send(errorsList);
+            }
+        } catch (error) {
+            console.trace(error);
+            res.status(500).send(error);
+        }
+    }
 }
 
 module.exports = authController;

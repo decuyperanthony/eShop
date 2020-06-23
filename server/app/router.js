@@ -9,6 +9,8 @@ const router = express.Router();
 
 // == page login
 router.post("/login", authController.loginAction);
+// == page signup
+router.post("/signup", authController.signupAction);
 
 
 
