@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const jwtUtils = require('../utils/jwt.utils');
 
 
 // une libraire pour tester le format des email
@@ -36,6 +37,12 @@ const authController = {
         // si le user existe et le testPass est true
         if (user && testPass) {
             console.log('<< 200 ok user :', user);
+              //! token ----------------------
+              console.log('user.id :>> ', user.id);
+              user.token = jwtUtils.generateTokenForUser(user);
+              console.log('userToken', user.token)
+              console.log('use after toke', user)
+              //! fin token ----------------
             res.send(user);
         } else {
             console.log('<< 401 UNAUTHORIZED');
@@ -57,14 +64,14 @@ const authController = {
                 password,
                 firstname,
                 lastname,
-                sexe,
-                birthday,
-                phone,
-                adresse1,
-                adresse2,
-                zip,
-                city,
-                country
+                // sexe,
+                // birthday,
+                // phone,
+                // adresse1,
+                // adresse2,
+                // zip,
+                // city,
+                // country
             } = req.body;
             // on verif que l'user n'existe pas avec son mail
             const user = await User.findOne({
@@ -96,40 +103,7 @@ const authController = {
             }
             if (errorsList.length === 0) {
                 let newUser = new User(req.body);
-                // console.log('newUser avant', newUser)
-                // newUser = {
-                //     firstname,
-                //     lastname,
-                //     email,
-                //     password: bcrypt.hashSync(password, 10),
-                //     // sexe,
-                //     // birthday,
-                //     phone,
-                //     adresse1,
-                //     adresse2,
-                //     zip,
-                //     city,
-                //     country
-                // }
-
-                // console.log('newUser apres', newUser)
-
-                // newUser.firstname = firstname;
-                // newUser.lastname = lastname;
-                // newUser.email = email;
-                // newUser.password = bcrypt.hashSync(password, 10);
-                // newUser.sexe = sexe;
-                // newUser.birthday = birthday;
-                // newUser.phone = phone;
-                // newUser.adresse1 = adresse1;
-                // newUser.adresse2 = adresse2;
-                // newUser.zip = zip;
-                // newUser.city = city;
-                // newUser.country = country;
-
-                console.log('newUserAfter', newUser)
-
-                const savedUser = await newUser.save();
+                let savedUser = await newUser.save();
                 res.status(200).send(savedUser);
             } else {
                 res.send(errorsList);

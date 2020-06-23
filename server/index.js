@@ -1,6 +1,8 @@
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const router = require('./app/router');
+const sanitizeMiddleware = require('./app/middleware/sanitise');
+
 
 
 const PORT = process.env.PORT || 3000;
@@ -20,6 +22,8 @@ app.use(
         extended: true
     })
 );
+// pour rendre propre les infos envoyés dans le body par le user
+app.use(sanitizeMiddleware);
 
 app.use(router);
 
