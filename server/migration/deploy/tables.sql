@@ -26,12 +26,12 @@ CREATE TABLE "article"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "title" TEXT NOT NULL UNIQUE,
     "description" TEXT NOT NULL,
-    "available" TEXT NOT NULL,-- DOMAINE A CREER 'disponible' 'not disponible'"
+    "available" TEXT,-- DOMAINE A CREER 'disponible' 'not disponible'"
     "stock" INT,
     "price" MONEY,
     "article_type" TEXT,
-    "collection_id" INT NOT NULL,
-    "category_id" INT NOT NULL,
+    "collection_id" INT,
+    "category_id" INT,
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP
 );
