@@ -3,6 +3,23 @@
 BEGIN;
 
 -- XXX Add DDLs here.
+CREATE TABLE "collection"(
+    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "name" TEXT NOT NULL UNIQUE,
+    "description" TEXT,
+    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP
+);
+
+CREATE TABLE "category"(
+    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "title" TEXT NOT NULL UNIQUE,
+    "color" TEXT, -- FORMAT : #ffffff
+    "description" TEXT,
+    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP
+);
+
 CREATE TABLE "user"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "firstname" TEXT,
@@ -26,12 +43,12 @@ CREATE TABLE "article"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "title" TEXT NOT NULL UNIQUE,
     "description" TEXT NOT NULL,
-    "available" TEXT NOT NULL,-- DOMAINE A CREER 'disponible' 'not disponible'"
+    "available" TEXT,-- DOMAINE A CREER 'disponible' 'not disponible'"
     "stock" INT,
     "price" MONEY,
     "article_type" TEXT,
-    "collection_id" INT NOT NULL,
-    "category_id" INT NOT NULL,
+    "collection_id" INT NOT NULL REFERENCES "collection"("id"),
+    "category_id" INT NOT NULL REFERENCES "category"("id"),
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP
 );
@@ -81,22 +98,6 @@ CREATE TABLE "rating"(
     "updated_at" TIMESTAMP
 );
 
-CREATE TABLE "category"(
-    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "title" TEXT NOT NULL UNIQUE,
-    "color" TEXT, -- FORMAT : #ffffff
-    "description" TEXT,
-    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP
-);
-
-CREATE TABLE "collection"(
-    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "name" TEXT NOT NULL UNIQUE,
-    "description" TEXT,
-    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP
-);
 
 -- ------- ------- n to n
 -- category_has_picture

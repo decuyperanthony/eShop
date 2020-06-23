@@ -1,9 +1,11 @@
 const Sequelize = require('sequelize');
+// ne pas oublier d'installer pg npm install pg
 
 // on instancie la connection
 const dbConnection = new Sequelize(process.env.PG_URL, {
     logging: false
 });
+
 
 // et on l'exporte !
 module.exports = dbConnection;
