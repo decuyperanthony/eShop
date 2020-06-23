@@ -3,6 +3,7 @@
 BEGIN;
 
 -- XXX Add DDLs here.
+-- je crée 2 domaines
 CREATE DOMAIN user_role AS TEXT
 CHECK(
    VALUE ~ 'user'
@@ -16,7 +17,7 @@ CHECK(
 );
 
 
-
+-- j'attache mes 2 domaines
 ALTER TABLE "user" ALTER "role" TYPE user_role;
 ALTER TABLE "user" ALTER "sexe" TYPE user_sexe;
 
