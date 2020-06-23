@@ -27,6 +27,46 @@ const ArticleController = {
             console.trace(error);
             res.status(500).send(error);
         }
+    },
+    addArticle: async (req, res) => {
+        try {
+            const newArticle = new Article(req.body);
+            const savedArticle = await newArticle.save();
+            res.status(200).send(savedArticle);
+        } catch (error) {
+            console.trace(error);
+            res.status(500).send(error);
+        }
+    },
+    updateArticle: async (req, res, next) => {
+        const articleId = req.params.id;
+        console.log('articleId', articleId);
+        try {
+            const article = await Article.findByPk(articleId);
+            if (!article) {
+                return next();
+            }
+            console.log('req.body', req.body);
+            await article.update(req.body);
+            res.status(200).send(article)
+        } catch (error) {
+            // console.trace(error);
+            res.status(500).send(error);
+        }
+    },
+    removeArticle: async (req, res, next) => {
+        const articleId = req.params.id;
+        try {
+            let article = await Article.findByPk(articleId);
+            if (!article) {
+                return next();
+            }
+            article.destroy();
+            res.status(200).send('article supprimé');
+        } catch (error) {
+            console.trace(error);
+            res.status(500).send(error);
+        }
     }
 }
 
