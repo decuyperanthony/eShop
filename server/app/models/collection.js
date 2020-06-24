@@ -9,12 +9,12 @@ class Collection extends Sequelize.Model {
 Collection.init({
     name: {
         type: Sequelize.TEXT,
-        allowNull: true,
+        allowNull: false,
         unique: true
     },
     description: {
         type: Sequelize.TEXT,
-        allowNull: false,
+        allowNull: true,
     }
 
 }, {
