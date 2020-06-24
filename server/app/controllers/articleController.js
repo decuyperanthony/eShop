@@ -47,7 +47,7 @@ const ArticleController = {
         try {
             const article = await Article.findByPk(articleId);
             if (!article) {
-                return next();
+                return res.status(401).send('Ct article n\'existe pas');
             }
             console.log('req.body', req.body);
             await article.update(req.body);
@@ -62,7 +62,7 @@ const ArticleController = {
         try {
             let article = await Article.findByPk(articleId);
             if (!article) {
-                return next();
+                return res.status(401).send('Cet article n\'existe pas');
             }
             article.destroy();
             res.status(200).send('article supprimé');
