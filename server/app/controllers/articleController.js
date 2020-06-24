@@ -3,10 +3,13 @@ const { Article } = require('../models');
 const ArticleController = {
     getAllArticles: async (req, res) => {
         try {
+            // possibilité de gerer le offset limit en envoyant un param dans l'url
+            let offset = 0;
+            let limit = 30;
             let articles = await Article.findAll({
-                offset: 0,
-                limit: 100,
-                include: ["category", "collection"],
+                offset,
+                limit,
+                include: ["category", "collection", "comments"],
                 // order: [title, 'ASC'],
                 // order: [name, 'ASC'],
             });
@@ -20,7 +23,7 @@ const ArticleController = {
         try {
             let articleId = req.params.id;
             let article = await Article.findByPk(articleId, {
-                include: ["category", "collection"],
+                include: ["category", "collection", "comments"],
             });
             res.send(article);
         } catch (error) {
@@ -44,7 +47,7 @@ const ArticleController = {
         try {
             const article = await Article.findByPk(articleId);
             if (!article) {
-                return next();
+                return res.status(401).send('Ct article n\'existe pas');
             }
             console.log('req.body', req.body);
             await article.update(req.body);
@@ -59,7 +62,7 @@ const ArticleController = {
         try {
             let article = await Article.findByPk(articleId);
             if (!article) {
-                return next();
+                return res.status(401).send('Cet article n\'existe pas');
             }
             article.destroy();
             res.status(200).send('article supprimé');

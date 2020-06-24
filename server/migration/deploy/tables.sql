@@ -20,6 +20,7 @@ CREATE TABLE "category"(
     "updated_at" TIMESTAMP
 );
 
+
 CREATE TABLE "user"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "firstname" TEXT,
@@ -53,6 +54,26 @@ CREATE TABLE "article"(
     "updated_at" TIMESTAMP
 );
 
+CREATE TABLE "comment"(
+    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "title" TEXT,
+    "description" TEXT,
+    "article_id" INT NOT NULL REFERENCES "article"("id"),
+    "user_id" INT NOT NULL REFERENCES "user"("id"),
+    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP
+);
+
+CREATE TABLE "rating"(
+    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "value" INT NOT NULL,
+    "article_id" INT NOT NULL REFERENCES "article"("id"),
+    "user_id" INT NOT NULL REFERENCES "user"("id"),
+    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP
+);
+
+
 CREATE TABLE "picture"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" TEXT NOT NULL UNIQUE,
@@ -73,25 +94,6 @@ CREATE TABLE "cart"(
 CREATE TABLE "transaction"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "quantity" INT NOT NULL,
-    "article_id" INT NOT NULL,
-    "user_id" INT NOT NULL,
-    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP
-);
-
-CREATE TABLE "comment"(
-    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "title" TEXT,
-    "description" TEXT NOT NULL,
-    "article_id" INT NOT NULL,
-    "user_id" INT NOT NULL,
-    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP
-);
-
-CREATE TABLE "rating"(
-    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "value" INT,
     "article_id" INT NOT NULL,
     "user_id" INT NOT NULL,
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
