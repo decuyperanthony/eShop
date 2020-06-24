@@ -3,9 +3,12 @@ const { Article } = require('../models');
 const ArticleController = {
     getAllArticles: async (req, res) => {
         try {
+            // possibilité de gerer le offset limit en envoyant un param dans l'url
+            let offset = 0;
+            let limit = 30;
             let articles = await Article.findAll({
-                offset: 0,
-                limit: 100,
+                offset,
+                limit,
                 include: ["category", "collection"],
                 // order: [title, 'ASC'],
                 // order: [name, 'ASC'],
