@@ -24,6 +24,10 @@ router.delete("/article/:id", articleController.removeArticle);
 
 //* ----- ROUTE DES COMMENTS -----
 router.get("/comment", commentController.getAllComments);
+router.get("/comment/:id", commentController.getOneComment);
 router.post("/comment/user/:user_id/article/:article_id", commentController.addComment);
+router.patch("/comment/:comment_id/user/:user_id", commentController.updateComment);
+router.delete("/comment/:comment_id/user/:user_id", commentController.removeComment);
+
 
 module.exports = router;
