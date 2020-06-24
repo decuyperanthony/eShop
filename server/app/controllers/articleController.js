@@ -9,7 +9,7 @@ const ArticleController = {
             let articles = await Article.findAll({
                 offset,
                 limit,
-                include: ["category", "collection"],
+                include: ["category", "collection", "comments"],
                 // order: [title, 'ASC'],
                 // order: [name, 'ASC'],
             });
@@ -23,7 +23,7 @@ const ArticleController = {
         try {
             let articleId = req.params.id;
             let article = await Article.findByPk(articleId, {
-                include: ["category", "collection"],
+                include: ["category", "collection", "comments"],
             });
             res.send(article);
         } catch (error) {
