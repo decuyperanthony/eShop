@@ -56,7 +56,7 @@ CREATE TABLE "article"(
 
 CREATE TABLE "comment"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "title" TEXT NOT NULL,
+    "title" TEXT,
     "description" TEXT,
     "article_id" INT NOT NULL REFERENCES "article"("id"),
     "user_id" INT NOT NULL REFERENCES "user"("id"),
@@ -72,6 +72,7 @@ CREATE TABLE "rating"(
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP
 );
+
 
 CREATE TABLE "picture"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
