@@ -85,8 +85,8 @@ CREATE TABLE "picture"(
 CREATE TABLE "cart"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "quantity" INT,
-    "article_id" INT NOT NULL,
-    "user_id" INT NOT NULL,
+    "article_id" INT NOT NULL REFERENCES "article"("id"),
+    "user_id" INT NOT NULL REFERENCES "user"("id"),
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP
 );

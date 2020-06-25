@@ -5,7 +5,7 @@ BEGIN;
 -- XXX Add DDLs here.
 
 DELETE FROM rating;
-
+DELETE FROM comment;
 DELETE FROM "user";
 DELETE FROM article;
 
@@ -13,7 +13,7 @@ DELETE FROM category;
 DELETE FROM "collection";
 
 
-DELETE FROM comment;
+
 
 DELETE FROM picture;
 DELETE FROM cart;
