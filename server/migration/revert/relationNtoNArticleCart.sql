@@ -1,7 +1,8 @@
 BEGIN;
 
 -- XXX Add DDLs here.
-DROP TABLE articles_in_card,
+DROP TABLE
+    -- articles_in_cart,
     "user",
     article,
     picture,

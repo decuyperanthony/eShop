@@ -89,28 +89,28 @@ Cart.belongsTo(User, {
     as: "owner"
 })
 
-//? ici non ok---------
-//? il faut ajouter une table de liaison
-//* -----   association n to n  Article <-> Cart
-Article.belongsToMany(Cart, {
-    through: "articles_in_card",
-    foreignKey: "article_id",
-    otherKey: "cart_id",
+// //? ici non ok---------
+// //? il faut ajouter une table de liaison
+// //* -----   association n to n  Article <-> Cart
+// Article.belongsToMany(Cart, {
+//     through: "articles_in_cart",
+//     foreignKey: "article_id",
+//     otherKey: "cart_id",
 
-    timestamps: false,
+//     timestamps: false,
 
-    as: "carts"
-})
+//     as: "carts"
+// })
 
-Cart.belongsToMany(Article, {
-    through: "articles_in_card",
-    foreignKey: "cart_id",
-    otherKey: "article_id",
+// Cart.belongsToMany(Article, {
+//     through: "articles_in_cart",
+//     foreignKey: "cart_id",
+//     otherKey: "article_id",
 
-    timestamps: false,
+//     timestamps: false,
 
-    as: "articles"
-})
+//     as: "articles"
+// })
 
 //!---------------- fin de => à changer ------------------------
 
