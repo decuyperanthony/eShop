@@ -71,7 +71,6 @@ const cartController = {
     removeCart: async (req, res, next) => {
         // const articleId = req.params.id;
         let { cart_id, user_id } = req.params;
-
    try {
        const cart = await Cart.findByPk(cart_id);
        if (!cart) {
