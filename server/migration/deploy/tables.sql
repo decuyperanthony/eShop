@@ -101,7 +101,14 @@ CREATE TABLE "transaction"(
 );
 
 
--- ------- ------- n to n
+-- ------- ------- n to n à changer ici
+-- CREATE TABLE "cards_has_labels"(
+--   "cards_id" INT NOT NULL REFERENCES "cards"("id") ON DELETE CASCADE,
+--   "labels_id" INT NOT NULL REFERENCES "labels"("id") ON DELETE CASCADE,
+--   "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--   PRIMARY KEY ("cards_id", "labels_id")
+-- );
+
 -- category_has_picture
 CREATE TABLE "category_has_picture"(
     "category_id" INT NOT NULL REFERENCES "category"("id") ON DELETE CASCADE,
