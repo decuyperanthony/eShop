@@ -8,6 +8,7 @@ const commentController = require('./controllers/commentController');
 const userController = require('./controllers/userController');
 const ratingController = require('./controllers/ratingController');
 const cartController = require('./controllers/cartController');
+const articlesInCartController = require('./controllers/articlesInCartController');
 const adminController = require('./controllers/adminController');
 
 
@@ -49,11 +50,16 @@ router.patch("/rating/:rating_id/user/:user_id", ratingController.updateRate);
 router.delete("/rating/:rating_id/user/:user_id", ratingController.removeRate);
 
 //* ----- ROUTE DES CART(à refaire car besoin de relation n to n entre article et panier) -----
-// router.get("/cart", cartController.getAllCarts);
-// router.get("/cart/:id", cartController.getOneCart);
-// router.post("/cart/user/:user_id/article/:article_id", cartController.addCart);
-// router.patch("/cart/:cart_id/user/:user_id", cartController.updateCart);
-// router.delete("/cart/:cart_id/user/:user_id", cartController.removeCart);
+router.get("/cart", cartController.getAllCarts);
+router.get("/cart/:id", cartController.getOneCart);
+router.post("/cart/user/:user_id/article/:article_id", cartController.addCart);
+router.patch("/cart/:cart_id/user/:user_id", cartController.updateCart);
+router.delete("/cart/:cart_id/user/:user_id", cartController.removeCart);
+
+// //* ------ route association/dissociation articles/cart
+// router.post('/article/cart/:cart_id', articlesInCartController.asociate);
+// router.delete('/article/:article_id/cart/:cart_id', articlesInCartController.dissociate);
+
 
 //! ----- ROUTE ADMIN -----
 router.delete("/admin/:adminId/user/:userId", adminController.removeUser);
