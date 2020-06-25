@@ -7,8 +7,7 @@ const commentController = {
                 // offset,
                 // limit,
                 include: ["author", "article"],
-                // order: [title, 'ASC'],
-                // order: [name, 'ASC'],
+                // order: [[title, 'ASC'], [name, 'ASC']],
             });
             res.send(comments);
         } catch (error) {
@@ -22,6 +21,9 @@ const commentController = {
             let comment = await Comment.findByPk(comment_id, {
                 include: ["author", "article"],
             });
+            if (!comment) {
+                return res.status(401).send('ce commentaire n\' existe pas')
+            }
             res.send(comment);
         } catch (error) {
             console.trace(error);
@@ -69,7 +71,7 @@ const commentController = {
         }
     },
     removeComment: async (req, res, next) => {
-        const articleId = req.params.id;
+        // const articleId = req.params.id;
         let { comment_id, user_id } = req.params;
 
    try {
