@@ -1,9 +1,8 @@
 const { Rating } = require('../models');
-// mettre les include et check le remove and ratingController ok
 const ratingController = {
     getAllRates: async (req, res) => {
         try {
-            let rates = await Rating.findAll({
+            const rates = await Rating.findAll({
                 // offset,
                 // limit,
                 include: ["author", "ratingArticle"],
@@ -18,7 +17,7 @@ const ratingController = {
     getOneRate: async (req, res) => {
         try {
             let rating_id = req.params.id;
-            let rate = await Rating.findByPk(rating_id, {
+            const rate = await Rating.findByPk(rating_id, {
                 include: ["author", "ratingArticle"],
             });
             if (!rate) {

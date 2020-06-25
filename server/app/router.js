@@ -7,6 +7,7 @@ const articleController = require('./controllers/articleController');
 const commentController = require('./controllers/commentController');
 const userController = require('./controllers/userController');
 const ratingController = require('./controllers/ratingController');
+const cartController = require('./controllers/cartController');
 
 
 
@@ -46,6 +47,14 @@ router.get("/rating/:id", ratingController.getOneRate);
 router.post("/rating/user/:user_id/article/:article_id", ratingController.addRate);
 router.patch("/rating/:rating_id/user/:user_id", ratingController.updateRate);
 router.delete("/rating/:rating_id/user/:user_id", ratingController.removeRate);
+
+//* ----- ROUTE DES CART(à refaire car besoin de relation n to n entre article et panier) -----
+// router.get("/cart", cartController.getAllCarts);
+// router.get("/cart/:id", cartController.getOneCart);
+// router.post("/cart/user/:user_id/article/:article_id", cartController.addCart);
+// router.patch("/cart/:cart_id/user/:user_id", cartController.updateCart);
+// router.delete("/cart/:cart_id/user/:user_id", cartController.removeCart);
+
 
 
 

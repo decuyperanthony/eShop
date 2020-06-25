@@ -4,6 +4,7 @@ const Category = require('./category');
 const Collection = require('./collection');
 const Rating = require('./rating');
 const Comment = require('./comment');
+const Cart = require('./cart');
 
 
 
@@ -30,7 +31,6 @@ Collection.hasMany(Article, {
     as: "articles"
 })
 
-//! ça doit etre l'inverse à verifier
 //*  -----  association Article <-> Rating
 Article.hasMany(Rating, {
     foreignKey: "article_id",
@@ -76,6 +76,28 @@ Comment.belongsTo(User, {
     as: "author"
 })
 
+//! à changer -----
+//* -----   association User <-> Cart
+User.hasOne(Cart, {
+    foreignKey: "user_id",
+    as: "cart"
+})
+
+Cart.belongsTo(User, {
+    foreignKey: "user_id",
+    as: "owner"
+})
+
+//* -----   association Article <-> Cart
+Article.hasMany(Cart, {
+    foreignKey: "article_id",
+    as: "carts"
+})
+
+Cart.belongsTo(Article, {
+    foreignKey: "article_id",
+    as: "articleCart"
+})
 
 
 
@@ -85,5 +107,6 @@ module.exports = {
     Category,
     Collection,
     Comment,
-    Rating
+    Rating,
+    Cart
 }
