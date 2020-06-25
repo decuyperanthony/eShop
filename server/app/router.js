@@ -8,6 +8,7 @@ const commentController = require('./controllers/commentController');
 const userController = require('./controllers/userController');
 const ratingController = require('./controllers/ratingController');
 const cartController = require('./controllers/cartController');
+const adminController = require('./controllers/adminController');
 
 
 
@@ -24,7 +25,6 @@ router.get("/user", userController.getAllUsers);
 router.get("/user/:id", userController.getOneUser);
 // router.post("/user/user/:user_id/article/:article_id", commentController.addComment);
 router.patch("/user/:id", userController.updateUser);
-router.delete("/user/:id", userController.removeUser);
 
 
 //* ----- ROUTE DES ARTICLES -----
@@ -55,6 +55,8 @@ router.delete("/rating/:rating_id/user/:user_id", ratingController.removeRate);
 // router.patch("/cart/:cart_id/user/:user_id", cartController.updateCart);
 // router.delete("/cart/:cart_id/user/:user_id", cartController.removeCart);
 
+//! ----- ROUTE ADMIN -----
+router.delete("/admin/:adminId/user/:userId", adminController.removeUser);
 
 
 
