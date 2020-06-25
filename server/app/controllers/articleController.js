@@ -10,6 +10,8 @@ const ArticleController = {
                 offset,
                 limit,
                 include: ["category", "collection", "comments"],
+                // order: [[title, 'ASC'], [name, 'ASC']],
+
                 // order: [title, 'ASC'],
                 // order: [name, 'ASC'],
             });
@@ -22,9 +24,13 @@ const ArticleController = {
     getOneArticle: async (req, res) => {
         try {
             let articleId = req.params.id;
+
             let article = await Article.findByPk(articleId, {
                 include: ["category", "collection", "comments"],
             });
+            if (!article) {
+                return res.status(401).send('cet article n\' existe pas')
+            }
             res.send(article);
         } catch (error) {
             console.trace(error);
