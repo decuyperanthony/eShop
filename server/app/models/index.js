@@ -76,7 +76,8 @@ Comment.belongsTo(User, {
     as: "author"
 })
 
-//! à changer -----
+//!------------- à changer -----
+//? ------- ici c est ok --------
 //* -----   association User <-> Cart
 User.hasOne(Cart, {
     foreignKey: "user_id",
@@ -88,16 +89,30 @@ Cart.belongsTo(User, {
     as: "owner"
 })
 
-//* -----   association Article <-> Cart
-Article.hasMany(Cart, {
+//? ici non ok---------
+//? il faut ajouter une table de liaison
+//* -----   association n to n  Article <-> Cart
+Article.belongsToMany(Cart, {
+    through: "articles_in_card",
     foreignKey: "article_id",
+    otherKey: "cart_id",
+
+    timestamps: false,
+
     as: "carts"
 })
 
-Cart.belongsTo(Article, {
-    foreignKey: "article_id",
-    as: "articleCart"
+Cart.belongsToMany(Article, {
+    through: "articles_in_card",
+    foreignKey: "cart_id",
+    otherKey: "article_id",
+
+    timestamps: false,
+
+    as: "articles"
 })
+
+//!---------------- fin de => à changer ------------------------
 
 
 
