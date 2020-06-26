@@ -102,6 +102,7 @@ const authController = {
                 );
             }
             if (errorsList.length === 0) {
+                req.body.password = bcrypt.hashSync(req.body.password, 10);
                 let newUser = new User(req.body);
                 let savedUser = await newUser.save();
                 res.status(200).send(savedUser);
