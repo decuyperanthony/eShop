@@ -11,7 +11,7 @@ const ArticleController = {
                 limit,
                 include: ["category", "collection", "comments"],
                 // order: [[title, 'ASC'], [name, 'ASC']],
-
+                order: ["id"]
                 // order: [title, 'ASC'],
                 // order: [name, 'ASC'],
             });
