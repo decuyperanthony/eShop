@@ -2,12 +2,12 @@ BEGIN;
 
 -- XXX Add DDLs here.
 DROP TABLE
-    -- articles_in_cart,
+    "ligneDeCommande",
+    "commande",
     "user",
     article,
     picture,
-    cart,
-    "transaction",
+    -- "transaction",
     comment,
     rating,
     category,

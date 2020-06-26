@@ -82,23 +82,32 @@ CREATE TABLE "picture"(
     "updated_at" TIMESTAMP
 );
 
-CREATE TABLE "cart"(
+CREATE TABLE "ligneDeCommande"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "quantity" INT,
+    "quantity" INT NOt NULL,
     "article_id" INT NOT NULL REFERENCES "article"("id"),
-    "user_id" INT NOT NULL REFERENCES "user"("id"),
+    -- "user_id" INT NOT NULL REFERENCES "user"("id"),
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP
 );
 
-CREATE TABLE "transaction"(
+CREATE TABLE "commande"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "quantity" INT NOT NULL,
-    "article_id" INT NOT NULL,
-    "user_id" INT NOT NULL,
+    "ligneDeCommande_id" INT NOT NULL REFERENCES "ligneDeCommande"("id"),
+    "user_id" INT NOT NULL REFERENCES "user"("id"),
+    "status" TEXT,
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP
 );
+
+-- CREATE TABLE "transaction"(
+--     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+--     "quantity" INT NOT NULL,
+--     "article_id" INT NOT NULL,
+--     "user_id" INT NOT NULL,
+--     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--     "updated_at" TIMESTAMP
+-- );
 
 
 -- ------- ------- n to n à changer ici
@@ -114,7 +123,8 @@ CREATE TABLE "category_has_picture"(
     "category_id" INT NOT NULL REFERENCES "category"("id") ON DELETE CASCADE,
     "picture_id" INT NOT NULL REFERENCES "picture"("id") ON DELETE CASCADE,
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP
+    "updated_at" TIMESTAMP,
+    PRIMARY KEY ("category_id", "picture_id")
 );
 
 -- picture_has_article
@@ -122,7 +132,8 @@ CREATE TABLE "article_has_picture"(
     "article_id" INT NOT NULL REFERENCES "article"("id") ON DELETE CASCADE,
     "picture_id" INT NOT NULL REFERENCES "picture"("id") ON DELETE CASCADE,
     "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP
+    "updated_at" TIMESTAMP,
+    PRIMARY KEY ("article_id", "picture_id")
 );
 
 
