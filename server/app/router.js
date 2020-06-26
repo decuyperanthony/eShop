@@ -8,6 +8,7 @@ const commentController = require('./controllers/commentController');
 const userController = require('./controllers/userController');
 const ratingController = require('./controllers/ratingController');
 const ligneDeCommandeController = require('./controllers/ligneDeCommandeController');
+const commandeController = require('./controllers/commandeController');
 // const articlesInCartController = require('./controllers/articlesInCartController');
 const adminController = require('./controllers/adminController');
 
@@ -49,12 +50,20 @@ router.post("/rating/user/:user_id/article/:article_id", ratingController.addRat
 router.patch("/rating/:rating_id/user/:user_id", ratingController.updateRate);
 router.delete("/rating/:rating_id/user/:user_id", ratingController.removeRate);
 
-//* ----- ROUTE DES LIGNES DE COMMANDE -----
+//* ----- ROUTE DES LIGNES_DE_COMMANDE -----
 router.get("/lignedecommande", ligneDeCommandeController.getAllLigneDeCommandes);
 router.get("/lignedecommande/:id", ligneDeCommandeController.getOneLigneDeCommande);
 router.post("/lignedecommande", ligneDeCommandeController.addLigneDeCommande);
 router.patch("/lignedecommande/:id", ligneDeCommandeController.updateLigneDeCommande);
 router.delete("/lignedecommande/:id", ligneDeCommandeController.removeLigneDeCommande);
+
+//* ----- ROUTE DES COMMANDES -----
+router.get("/commande", commandeController.getAllCommandes);
+router.get("/commande/:id", commandeController.getOneCommande);
+router.post("/commande", commandeController.addCommande);
+router.patch("/commande/:id", commandeController.updateCommande);
+router.delete("/commande/:id", commandeController.removeCommande);
+
 
 // //* ------ route association/dissociation articles/cart
 // router.post('/article/cart/:cart_id', articlesInCartController.asociate);

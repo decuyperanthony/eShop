@@ -93,18 +93,18 @@ const LigneDeCommandeController = {
     removeLigneDeCommande: async (req, res, next) => {
         let ligneDeCommande_id = req.params.id;
         // let { cart_id, user_id } = req.params;
-   try {
-       const ligneDeCommande = await LigneDeCommande.findByPk(ligneDeCommande_id);
-       if (!ligneDeCommande) {
-           console.log('Cette ligne n existe pas');
-           return res.status(401).send('Cette ligne n existe pas')
-       }
-       ligneDeCommande.destroy();
-       res.status(200).send('ligne supprimé');
-   } catch (error) {
-            console.trace(error);
-            res.status(500).send(error);
-        }
+        try {
+            const ligneDeCommande = await LigneDeCommande.findByPk(ligneDeCommande_id);
+            if (!ligneDeCommande) {
+                console.log('Cette ligne n existe pas');
+                return res.status(401).send('Cette ligne n existe pas')
+            }
+            ligneDeCommande.destroy();
+            res.status(200).send('ligne supprimé');
+        } catch (error) {
+                    console.trace(error);
+                    res.status(500).send(error);
+                }
     }
 }
 

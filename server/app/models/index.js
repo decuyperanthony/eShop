@@ -90,15 +90,15 @@ LigneDeCommande.belongsTo(Article, {
 })
 
 //* -----   association LigneDeCommande <-> Commande
-// LigneDeCommande.belongsTo(Commande, {
-//     foreignKey: "ligneDeCommande_id",
-//     as: "commande"
-// })
+LigneDeCommande.hasMany(Commande, {
+    foreignKey: "ligneDeCommande_id",
+    as: "commande"
+})
 
-// Commande.hasMany(LigneDeCommande, {
-//     foreignKey: "ligneDeCommande_id",
-//     as: "lignesDeCommandes"
-// })
+Commande.belongsTo(LigneDeCommande, {
+    foreignKey: "ligneDeCommande_id",
+    as: "lignesDeCommandes"
+})
 
 //* -----   association Commande <-> User
 User.hasMany(Commande, {
