@@ -4,7 +4,9 @@ const Category = require('./category');
 const Collection = require('./collection');
 const Rating = require('./rating');
 const Comment = require('./comment');
-const Cart = require('./cart');
+const LigneDeCommande = require('./ligneDeCommande');
+const Commande = require('./commande');
+
 
 
 
@@ -76,18 +78,51 @@ Comment.belongsTo(User, {
     as: "author"
 })
 
-//!------------- à changer -----
-//? ------- ici c est ok --------
-//* -----   association User <-> Cart
-User.hasOne(Cart, {
-    foreignKey: "user_id",
-    as: "cart"
+//* -----   association Article <-> LigneDeCommande
+Article.hasOne(LigneDeCommande, {
+    foreignKey: "article_id",
+    as: "ligneDeCommande"
 })
 
-Cart.belongsTo(User, {
+LigneDeCommande.belongsTo(Article, {
+    foreignKey: "article_id",
+    as: "orderedArticle"
+})
+
+//* -----   association LigneDeCommande <-> Commande
+// LigneDeCommande.belongsTo(Commande, {
+//     foreignKey: "ligneDeCommande_id",
+//     as: "commande"
+// })
+
+// Commande.hasMany(LigneDeCommande, {
+//     foreignKey: "ligneDeCommande_id",
+//     as: "lignesDeCommandes"
+// })
+
+//* -----   association Commande <-> User
+User.hasMany(Commande, {
+    foreignKey: "user_id",
+    as: "commandes"
+})
+
+Commande.belongsTo(User, {
     foreignKey: "user_id",
     as: "owner"
 })
+
+//!------------- à changer -----
+//? ------- ici c est ok --------
+//* -----   association User <-> Cart
+// User.hasOne(Cart, {
+//     foreignKey: "user_id",
+//     as: "cart"
+// })
+
+// Cart.belongsTo(User, {
+//     foreignKey: "user_id",
+//     as: "owner"
+// })
 
 // //? ici non ok---------
 // //? il faut ajouter une table de liaison
@@ -123,5 +158,6 @@ module.exports = {
     Collection,
     Comment,
     Rating,
-    Cart
+    Commande,
+    LigneDeCommande
 }
