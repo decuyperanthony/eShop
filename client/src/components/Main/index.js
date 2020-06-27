@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { API_URL } from '../../utils/constante';
 
+import Loading from '../Loading';
+
 // == Import
 // import reactLogo from './react-logo.svg';
 import './styles.scss';
@@ -14,29 +16,26 @@ const Main = () => {
   const dispatch = useDispatch();
   const clickCount = useSelector((state) => state.counter);
   //! ------ axios ------
-
+  const [articles, setArticles] = useState('');
   useEffect(() => {
     axios
-      .get(`${API_URL}/articles`)
+      .get(`${API_URL}/article`)
       .then((res) => {
-        const articles = res.data;
-        console.log('articles', articles);
+        // const articles = res.data;
+        setArticles(res.data);
       })
       .catch((error) => console.trace(error));
-  });
-  // == actions
-
-  // `${API_URL}/articles`;
-
-  // const getCategories = (url = categoriesRequest) => {
-  //   const promise = axios.get(
-  //     url,
-  //   );
-  //   promise.then((res) => {
-  //     const articles = res.data;
-  //     // store.dispatch({ type: SET_CATEGORIES, payload: categories });
-  //   });
-  // };
+  }, []);
+  console.log('articles', articles);
+  let articleJSX;
+  if (articles) {
+    articleJSX = articles.map((article) => {
+      console.log('articleJSX');
+      return (
+        <div key={article.id}>{article.id}</div>
+      );
+    });
+  }
   //! ---- fin axios ----
 
   return (
@@ -50,6 +49,7 @@ const Main = () => {
         Clic-me ! ({clickCount})
       </button>
       <p>Mes articles</p>
+      {articles.length > 0 ? (<>{articleJSX}</>) : <Loading />}
     </div>
   );
 };
