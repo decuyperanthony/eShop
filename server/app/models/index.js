@@ -4,6 +4,9 @@ const Category = require('./category');
 const Collection = require('./collection');
 const Rating = require('./rating');
 const Comment = require('./comment');
+const LigneDeCommande = require('./ligneDeCommande');
+const Commande = require('./commande');
+
 
 
 
@@ -30,7 +33,6 @@ Collection.hasMany(Article, {
     as: "articles"
 })
 
-//! ça doit etre l'inverse à verifier
 //*  -----  association Article <-> Rating
 Article.hasMany(Rating, {
     foreignKey: "article_id",
@@ -76,6 +78,76 @@ Comment.belongsTo(User, {
     as: "author"
 })
 
+//* -----   association Article <-> LigneDeCommande
+Article.hasOne(LigneDeCommande, {
+    foreignKey: "article_id",
+    as: "ligneDeCommande"
+})
+
+LigneDeCommande.belongsTo(Article, {
+    foreignKey: "article_id",
+    as: "orderedArticle"
+})
+
+//* -----   association LigneDeCommande <-> Commande
+LigneDeCommande.hasMany(Commande, {
+    foreignKey: "ligneDeCommande_id",
+    as: "commande"
+})
+
+Commande.belongsTo(LigneDeCommande, {
+    foreignKey: "ligneDeCommande_id",
+    as: "lignesDeCommandes"
+})
+
+//* -----   association Commande <-> User
+User.hasMany(Commande, {
+    foreignKey: "user_id",
+    as: "commandes"
+})
+
+Commande.belongsTo(User, {
+    foreignKey: "user_id",
+    as: "owner"
+})
+
+//!------------- à changer -----
+//? ------- ici c est ok --------
+//* -----   association User <-> Cart
+// User.hasOne(Cart, {
+//     foreignKey: "user_id",
+//     as: "cart"
+// })
+
+// Cart.belongsTo(User, {
+//     foreignKey: "user_id",
+//     as: "owner"
+// })
+
+// //? ici non ok---------
+// //? il faut ajouter une table de liaison
+// //* -----   association n to n  Article <-> Cart
+// Article.belongsToMany(Cart, {
+//     through: "articles_in_cart",
+//     foreignKey: "article_id",
+//     otherKey: "cart_id",
+
+//     timestamps: false,
+
+//     as: "carts"
+// })
+
+// Cart.belongsToMany(Article, {
+//     through: "articles_in_cart",
+//     foreignKey: "cart_id",
+//     otherKey: "article_id",
+
+//     timestamps: false,
+
+//     as: "articles"
+// })
+
+//!---------------- fin de => à changer ------------------------
 
 
 
@@ -85,5 +157,7 @@ module.exports = {
     Category,
     Collection,
     Comment,
-    Rating
+    Rating,
+    Commande,
+    LigneDeCommande
 }

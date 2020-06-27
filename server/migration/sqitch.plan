@@ -7,3 +7,4 @@ domain 2020-06-22T14:41:50Z decuyperanthony <decuyperanthony@gmail.com> # ajout 
 fakedata 2020-06-22T16:05:37Z decuyperanthony <decuyperanthony@gmail.com> # ajout de fausse données
 fakeDataArticle 2020-06-23T15:26:25Z decuyperanthony <decuyperanthony@gmail.com> # ajout de fausse data article
 fakeDataCommentRating 2020-06-24T12:56:27Z decuyperanthony <decuyperanthony@gmail.com> # ajout de fausse data comment/rating
+relationNtoNArticleCart 2020-06-25T12:12:33Z decuyperanthony <decuyperanthony@gmail.com> # relation n to n article and cart
