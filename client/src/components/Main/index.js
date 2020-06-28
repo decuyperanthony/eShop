@@ -29,12 +29,14 @@ const Main = () => {
   console.log('articles', articles);
   let articleJSX;
   if (articles) {
-    articleJSX = articles.map((article) => {
-      console.log('articleJSX');
-      return (
-        <div key={article.id}>{article.id}</div>
-      );
-    });
+    articleJSX = articles.map((article) => (
+      <>
+        <div key={article.id}>
+          {article.id}
+          {article.category.title}
+        </div>
+      </>
+    ));
   }
   //! ---- fin axios ----
 
