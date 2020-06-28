@@ -3,9 +3,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // == Import component
-import Header from '../Header';
+import NavBar from '../NavBar';
 import Main from '../Main';
 import Footer from '../Footer';
+import Signup from '../Signup';
 
 
 // == Import
@@ -17,8 +18,9 @@ const App = () => {
   const dispatch = useDispatch();
   return (
     <div className="app">
-      <Header />
+      <NavBar />
       <Main />
+      <Signup />
       <Footer />
     </div>
   );
