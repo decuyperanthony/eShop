@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import {
+  Button,
+} from 'react-bootstrap';
+
 import axios from 'axios';
 import { API_URL } from '../../utils/constante';
 
@@ -44,12 +48,12 @@ const Main = () => {
     <div className="main-container">
       {/* <img src={reactLogo} alt="react logo" /> */}
       <h1>Main container</h1>
-      <button
+      <Button
         type="button"
         onClick={() => dispatch({ type: 'INCREMENT' })}
       >
         Clic-me ! ({clickCount})
-      </button>
+      </Button>
       <p>Mes articles</p>
       {articles.length > 0 ? (<>{articleJSX}</>) : <Loading />}
     </div>
