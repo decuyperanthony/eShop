@@ -58,7 +58,9 @@ const authController = {
 
     signupAction: async (req, res) => {
         try {
+            console.log('bonjour signup')
             // on recup les infos
+            console.log('req.body', req.body);
             const {
                 email,
                 password,
@@ -84,6 +86,7 @@ const authController = {
             // si on trouve un user => le mail existe
             if (user) {
                 errorsList.push("Cet email existe déjà");
+
             }
             if (!firstname) {
                 errorsList.push("Le prénom ne peut pas être vide");
@@ -101,13 +104,18 @@ const authController = {
                   "Le mot de passe doit contenir un minimum de 8 caractères"
                 );
             }
+            console.log('errorsList', errorsList);
             if (errorsList.length === 0) {
                 req.body.password = bcrypt.hashSync(req.body.password, 10);
                 let newUser = new User(req.body);
                 let savedUser = await newUser.save();
+                savedUser.messagePositif = 'bien ouej poto'
+                console.log('utilisateur ajouté')
                 res.status(200).send(savedUser);
             } else {
-                res.send(errorsList);
+                res.status(401).send(errorsList);
+                console.log('ligne117 mail existant')
+                // res.status(401);
             }
         } catch (error) {
             console.trace(error);
