@@ -6,11 +6,12 @@ import { useForm } from 'react-hook-form';
 // == Import
 import axios from 'axios';
 import {
-  Button, Col, Form,
+  Button, Col, Form, Alert,
 } from 'react-bootstrap';
 import { API_URL } from '../../utils/constante';
 
 import Loading from '../Loading';
+import messagePositif from './messagePositif';
 import './styles.scss';
 
 
@@ -29,26 +30,27 @@ const Signup = () => {
       })
       .catch((error) => console.trace(error));
   }, []);
-  console.log('departements', departements);
   let departementsJSX;
   if (departements) {
-    departementsJSX = departements.map((dep) => {
-      console.log('ok');
+    departementsJSX = departements.map((dep) =>
+
       //   console.log(dep.nom);
-      return (
+      (
         <option key={dep.code}>{dep.nom}</option>
-      );
-    });
+      ));
   }
 
   // hook form
   const url2 = 'signup';
   const { register, handleSubmit, errors } = useForm();
   const [fnel, setFnel] = useState('');
+  const [errorServer, setErrorServer] = useState('');
+  // const [show, setShow] = useState(false);
+  let messagePositifJSX = '';
+  // let messageNegatifJSX = '';
   const onSubmit = (data) => {
-    console.log(data.firstname);
     console.log(errors);
-
+    // process.env.URL_SIGNUP
     axios
       .post(`${API_URL}/${url2}`, {
         firstname: data.firstname,
@@ -62,12 +64,35 @@ const Signup = () => {
         // setFnel(res.data);
         console.log(res.data);
         console.log(res.status);
-        if (res.status) {
-          setFnel('bravo poto');
+        console.log('statusText', res.statusText);
+        console.log('res', res);
+        console.log('dans le then du axios');
+        if (res.status === 200) {
+          // setShow(true);
+
+          messagePositifJSX = (
+            <Alert variant="success" onClose={() => setFnel('')} dismissible>
+              <Alert.Heading>Hey {res.data.firstname}</Alert.Heading>
+              <p>
+                Aww yeah, you successfully read this important alert message. This example
+                text is going to run a bit longer so that you can see how spacing within an
+                alert works with this kind of content.
+              </p>
+              <hr />
+              <p className="mb-0">
+                Whenever you need to, be sure to use margin utilities to keep things nice
+                and tidy.
+              </p>
+            </Alert>
+          );
+          setFnel(messagePositifJSX);
         }
-        // console.log(error);
       })
-      .catch((error) => console.trace(error));
+      .catch((error) => {
+        console.log('vous etes en error');
+        setErrorServer('le mail existe deja');
+        console.trace(error);
+      });
   };
 
   return (
@@ -76,6 +101,7 @@ const Signup = () => {
         <Form.Row>
           <Form.Group as={Col} controlId="formGridFirstname">
             <Form.Label>First Name</Form.Label>
+            {/* ref={register({ required: true, maxLength: 80 })} */}
             <Form.Control type="text" placeholder="First name" name="firstname" ref={register({ required: true, maxLength: 80 })} />
           </Form.Group>
           {/* <input type="text" placeholder="First name" name="First name" ref={register({ required: true, maxLength: 80 })} /> */}
@@ -138,6 +164,9 @@ const Signup = () => {
         </Button>
       </Form>
       {fnel}
+      {/* {messagePositifJSX}
+      {messageNegatifJSX} */}
+      {errorServer}
     </div>
   );
 };
