@@ -114,7 +114,7 @@ const authController = {
                 res.status(200).send(savedUser);
             } else {
                 res.status(401).send(errorsList);
-                console.log('ligne117 mail existant')
+                console.log('cet email existe déja');
                 // res.status(401);
             }
         } catch (error) {
